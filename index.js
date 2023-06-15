@@ -102,7 +102,7 @@ async function run() {
     })
     // get all existing user's from database
     app.get('/instructors', async (req, res) => {
-      const result = await userCollection.find({ role: "musician" }).toArray();
+      const result = await userCollection.find({ role: "musician" }).sort({ students: -1 }).toArray();
       res.send(result)
     })
     // post newUser in database

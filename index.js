@@ -294,13 +294,15 @@ async function run() {
     })
 
     // payment related api
-    app.post('/payments', verifyJWT, async (req, res) => {
+    app.post('/enroll/paid/:id', verifyJWT, async (req, res) => {
       const payment = req.body;
+      const id = req.params.id;
       const insertResult = await paymentCollection.insertOne(payment);
+      const query = { _id: new ObjectId(id) };
+      const deleteResult = await selectedCollection.deleteOne(query);
+      const insertEnroll = await enrolledCollection.insertOne(payment);
 
-      const deleteResult = await selectedCollection.deleteOne(query)
-
-      res.send({ insertResult, deleteResult });
+      res.send({ insertResult, deleteResult, insertEnroll });
     })
 
     // connecting api's

@@ -179,7 +179,7 @@ async function run() {
       res.json(classes)
     })
     app.get('/approveClasses', async (req, res) => {
-      const data = await classCollection.find({ status: "approved" }).sort({ seats: 1 }).toArray();
+      const data = await classCollection.find({ status: "approved" }).sort({ seats: -1 }).toArray();
       res.json(data)
     })
     //class approved

@@ -305,6 +305,12 @@ async function run() {
       res.send({ insertResult, deleteResult, insertEnroll });
     })
 
+    // enrolled class
+    app.get('/enrolledClasses/:email', verifyJWT, async (req, res) => {
+      const email = req.params.email;
+      const classes = await enrolledCollection.find({ studentEmail: email }).toArray();
+      res.json(classes)
+    })
     // connecting api's
     app.get('/', (req, res) => {
       res.send('Hello World!')

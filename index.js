@@ -312,9 +312,10 @@ async function run() {
       res.json(classes)
     })
     // payment history
+    // payment history
     app.get('/paymenthistory/:email', verifyJWT, async (req, res) => {
       const email = req.params.email;
-      const payments = await paymentCollection.find({ user: email }).toArray();
+      const payments = await paymentCollection.find({ user: email }).sort({ date: -1 }).toArray();
       res.json(payments)
     })
     // connecting api's

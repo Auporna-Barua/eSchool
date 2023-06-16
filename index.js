@@ -311,6 +311,12 @@ async function run() {
       const classes = await enrolledCollection.find({ studentEmail: email }).toArray();
       res.json(classes)
     })
+    // payment history
+    app.get('/paymenthistory/:email', verifyJWT, async (req, res) => {
+      const email = req.params.email;
+      const payments = await paymentCollection.find({ user: email }).toArray();
+      res.json(payments)
+    })
     // connecting api's
     app.get('/', (req, res) => {
       res.send('Hello World!')

@@ -144,7 +144,7 @@ async function run() {
     });
 
 
-    app.get('/allUsers/admin/:email', verifyJWT, verifyAdmin, async (req, res) => {
+    app.get('/allUsers/admin/:email', verifyJWT, async (req, res) => {
       const email = req.params.email;
       const query = { email: email }
       const user = await userCollection.findOne(query);
